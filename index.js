@@ -6,6 +6,11 @@ const port = 3000;
 const mongoose = require("mongoose");
 
 const test = require("./mongoose");
+
+/* Using static files in express */
+const path = require("path");
+app.use(express.static(path.join(__dirname, "/public")));
+
 const uri = "mongodb://localhost:27017/test";
 mongoose.connect(uri).then(
   () => {
@@ -18,6 +23,7 @@ mongoose.connect(uri).then(
 
 /* Mongoose Schema */
 const test1 = new test({ name: "modulized" });
+const test2 = new test({ name: "test2" });
 test.findOne({ name: "modulized" }, function (err, doc) {
   if (err) return console.log(err);
   if (doc) return console.log(`${doc.name} already exists`);
@@ -27,13 +33,18 @@ test.findOne({ name: "modulized" }, function (err, doc) {
     return console.log("new documnet has been added");
   });
 });
+test.findOne({ name: "test2" }, function (err, doc) {
+  if (err) return console.log(err);
+  if (doc) return console.log(`${doc.name} already exists`);
+
+  test2.save((err) => {
+    if (err) return res.status(500).send(err);
+    return console.log("new documnet has been added");
+  });
+});
 
 /* Insert a sample document */
 /* Create a new MongoClient */
-
-/* Using static files in express */
-const path = require("path");
-app.use("/static", express.static(path.join(__dirname, "public")));
 
 /* Starting Express */
 app.get("/", (req, res) => {
