@@ -7,6 +7,9 @@ const mongoose = require("mongoose");
 
 const test = require("./mongoose");
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 /* Using static files in express */
 const path = require("path");
 app.use(express.static(path.join(__dirname, "/public")));
@@ -49,6 +52,10 @@ test.findOne({ name: "test2" }, function (err, doc) {
 /* Starting Express */
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
+});
+
+app.post("/", (req, res) => {
+  res.send(`your todo item is ${req.body.todo}`);
 });
 
 app.listen(port, () => {
