@@ -7,12 +7,13 @@ const mongoose = require("mongoose");
 
 const test = require("./mongoose");
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
 
 /* Using static files in express */
-const path = require("path");
-app.use(express.static(path.join(__dirname, "/public")));
+// const path = require("path");
+// app.use(express.static(path.join(__dirname, "/public")));
 
 const uri = "mongodb://localhost:27017/test";
 mongoose.connect(uri).then(
@@ -50,13 +51,16 @@ test.findOne({ name: "test2" }, function (err, doc) {
 /* Create a new MongoClient */
 
 /* Starting Express */
+// app.get("/", (req, res) => {
+//   res.sendFile(__dirname + "/public/index.html");
+// });
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
+  res.render("index", { title: "bugh bugh" });
 });
 
-app.post("/", (req, res) => {
-  res.send(`your todo item is ${req.body.todo}`);
-});
+// app.post("/", (req, res) => {
+//   res.send(`your todo item is ${req.body.todo}`);
+// });
 
 app.listen(port, () => {
   console.log(`Todo-App is listening on port ${port}`);
