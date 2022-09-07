@@ -16,13 +16,19 @@
   <body>
     <form action="/" method="post" class="container">
       <div>
-        <label for="todo"> <%- title %></label>
+        <label for="todo"> <%= title %></label>
         <br />
         <input type="text" name="todo" />
         <br />
         <button type="submit" class="btn btn-dark">Submit</button>
       </div>
+      <div class="list">
+        <% items.forEach(function(item){ %>
+        <div><%- item %></div>
+        <% }) %>
+      </div>
     </form>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"

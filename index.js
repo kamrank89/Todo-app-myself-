@@ -49,13 +49,13 @@ test.findOne({ name: "test2" }, function (err, doc) {
 
 /* Insert a sample document */
 /* Create a new MongoClient */
-
+items = ["h", "g", "b"];
 /* Starting Express */
 // app.get("/", (req, res) => {
 //   res.sendFile(__dirname + "/public/index.html");
 // });
 app.get("/", (req, res) => {
-  res.render("index", { title: "bugh bugh" });
+  res.render("index", { title: "Todo Items", items: items });
 });
 
 // app.post("/", (req, res) => {
