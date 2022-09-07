@@ -4,11 +4,12 @@ const app = express();
 const port = 3000;
 /* Mongoose calling */
 const mongoose = require("mongoose");
+// const bodyParser = require("body-parser");
 
 const test = require("./mongoose");
 
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 /* Using static files in express */
@@ -49,7 +50,7 @@ test.findOne({ name: "test2" }, function (err, doc) {
 
 /* Insert a sample document */
 /* Create a new MongoClient */
-items = ["h", "g", "b"];
+const items = [];
 /* Starting Express */
 // app.get("/", (req, res) => {
 //   res.sendFile(__dirname + "/public/index.html");
@@ -58,9 +59,12 @@ app.get("/", (req, res) => {
   res.render("index", { title: "Todo Items", items: items });
 });
 
-// app.post("/", (req, res) => {
-//   res.send(`your todo item is ${req.body.todo}`);
-// });
+app.post("/", (req, res) => {
+  var item = req.body.todo;
+  items.push(item);
+  console.log(`${req.body.todo} has been added`);
+  res.redirect("/");
+});
 
 app.listen(port, () => {
   console.log(`Todo-App is listening on port ${port}`);
