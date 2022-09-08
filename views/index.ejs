@@ -22,12 +22,14 @@
         <br />
         <button type="submit" class="btn btn-dark">Submit</button>
       </div>
-      <div class="list">
-        <% items.forEach(function(item){ %>
-        <div><input type="checkbox"><%- item.name %></input></div>
-        <% }) %>
-      </div>
     </form>
+      <form action="/delete" method="post" class="secondform">
+        <div class="list">
+          <% items.forEach(function(item){ %>
+            <div><input type="checkbox" name="checkbox" value="<%=item._id%>" onchange="this.form.submit()"><%- item.name %></input></div>
+            <% }) %>
+          </div>
+        </form>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"

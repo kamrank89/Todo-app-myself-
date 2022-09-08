@@ -49,6 +49,19 @@ module.exports.deletingData = function (database, word) {
   });
 };
 
+/* Deleting data from database by id */
+module.exports.deletingDataById = function (database, id) {
+  database.findOne({ _id: id }, function (err, doc) {
+    if (doc) {
+      database.deleteOne({ _id: id }, function (err) {
+        if (err) return console.log(err);
+        console.log(`${id} has been deleted from database`);
+      });
+    }
+    console.log(`${id} has not been find in the database`);
+  });
+};
+
 /* Finding all data in the database */
 module.exports.findAll = function (database) {
   database.find({}, "name", function (err, docs) {
