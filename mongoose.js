@@ -27,7 +27,7 @@ module.exports.mongooseConnect = function () {
 module.exports.addingData = function (database, entry, word) {
   database.findOne({ name: word }, function (err, doc) {
     if (err) return console.log(err);
-    if (doc) return console.log(`${doc.name} already exists`);
+    // if (doc) return console.log(`${doc.name} already exists`);
 
     entry.save((err) => {
       if (err) return res.status(500).send(err);
