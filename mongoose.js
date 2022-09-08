@@ -23,6 +23,7 @@ module.exports.mongooseConnect = function () {
   );
 };
 
+/* Adding data to database function */
 module.exports.addingData = function (database, entry, word) {
   database.findOne({ name: word }, function (err, doc) {
     if (err) return console.log(err);
@@ -34,6 +35,8 @@ module.exports.addingData = function (database, entry, word) {
     });
   });
 };
+
+/* Deleting data from the database function */
 module.exports.deletingData = function (database, word) {
   database.findOne({ name: word }, function (err, doc) {
     if (doc) {
@@ -43,5 +46,16 @@ module.exports.deletingData = function (database, word) {
       });
     }
     console.log(`${word} has not been find in the database`);
+  });
+};
+
+/* Finding all data in the database */
+module.exports.findAll = function (database) {
+  database.find({}, "name", function (err, docs) {
+    if (err) console.log(err);
+    if (!docs) console.log("No document has been found");
+    docs.forEach(function (doc) {
+      console.log(doc.name);
+    });
   });
 };
