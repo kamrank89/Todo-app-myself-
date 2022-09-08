@@ -2,51 +2,37 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-/* Mongoose calling */
-const mongoose = require("mongoose");
-// const bodyParser = require("body-parser");
 
-const test = require("./mongoose");
+/* Importing mongoose Schema */
+
+/* Importing mongoose Connection */
+const mongoose = require("./mongoose");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-/* Using static files in express */
-// const path = require("path");
-// app.use(express.static(path.join(__dirname, "/public")));
-
-const uri = "mongodb://localhost:27017/test";
-mongoose.connect(uri).then(
-  () => {
-    console.log("Mongoose is connected");
-  },
-  (err) => {
-    console.log(err);
-  }
-);
-
 /* Mongoose Schema */
-const test1 = new test({ name: "modulized" });
-const test2 = new test({ name: "test2" });
-test.findOne({ name: "modulized" }, function (err, doc) {
-  if (err) return console.log(err);
-  if (doc) return console.log(`${doc.name} already exists`);
+// mongooseSchema("newtest");
+mongoose.mongooseConnect();
+const test = mongoose.mongooseSchema("test");
+const entry1 = new test({ name: "test1" });
+const entry2 = new test({ name: "test2" });
 
-  test1.save((err) => {
-    if (err) return res.status(500).send(err);
-    return console.log("new documnet has been added");
-  });
-});
-test.findOne({ name: "test2" }, function (err, doc) {
-  if (err) return console.log(err);
-  if (doc) return console.log(`${doc.name} already exists`);
+mongoose.addingData(test, entry2, "test2");
+// mongoose.deletingData(test, "test1");
+// mongoose.deletingData(test, "test2");
+// const entry1 = new newtest({ name: "entry1" });
+// });
+// test.findOne({ name: "test1" }, function (err, doc) {
+//   if (err) return console.log(err);
+//   if (doc) return console.log(`${doc.name} already exists`);
 
-  test2.save((err) => {
-    if (err) return res.status(500).send(err);
-    return console.log("new documnet has been added");
-  });
-});
+//   entry1.save((err) => {
+//     if (err) return res.status(500).send(err);
+//     return console.log("new documnet has been added");
+//   });
+// });
 
 /* Insert a sample document */
 /* Create a new MongoClient */
